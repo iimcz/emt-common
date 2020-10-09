@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+message Resource {
+    oneof data {
+      Scene3D scene = 1;
+      Image image = 2;
+      Video video = 3;
+    }
+    string interactions = 4; // Probably JSON, we've agreed there's no point in binding it on protobuf layer
+}
+
+message Scene3D {
+  bytes gltf = 1; // GLTF contains models, composition, textures, everything sould be contained
+}
+
+message Image {
+  repeated bytes images = 1;
+  enum Presentation {
+    SLIDESHOW = 0;
+    PAN_ZOOM = 1;
+  }
+  Presentation image_presentation = 2;
+}
+
+message Video {
+  bytes data = 1; // Separate audio/video streams maybe?
+  enum VideoCodec {
+    VP9 = 0;
+    AV1 = 1;
+  }
+  enum AudioCodec {
+    OPUS = 0;
+  }
+  VideoCodec video_codec = 2;
+  AudioCodec audio_codec = 3;
+}

@@ -1,0 +1,19 @@
+syntax = "proto3";
+import "resource.proto";
+
+// Device -> Server
+message ConnectionRequest {
+  string connection_id = 1; // ID of connecting PC
+}
+
+// Server -> Device
+message ConnectionAcknowledgement {
+  bool verified = 1;
+  bytes shared_key = 2; // Key for p2p communication
+}
+
+// Server -> Device
+message SceneComposition {
+  repeated Resource resources = 1; // Maybe specify which scene is default? (Or just assume 1st)
+  repeated string public_sensors = 2; // Which sensors should broadcast data (bandwidth reasons, maybe not needed?)
+}

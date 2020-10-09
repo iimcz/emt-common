@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+// Can be used both for device <-> device as well as RasPi -> Device
+message InteracationInfo {
+  string sensor_name = 1;
+  oneof payload {
+    Gesture gesture = 2;
+    MobileApp mobile_app = 3;
+    RoomEnter room_enter = 4;
+    Microphone microphone = 5;
+    LightSensor light_sensor = 6;
+    ProximitySensor proximity_sensor = 7;
+    IR ir = 8;
+    Temperature temperature = 9;
+    Humidity humidity = 10;
+    Time time = 11;
+  };
+}
+
+// TODO: All sensor type data, depends on what we'll actually use
+
+message Gesture { }
+message MobileApp { }
+message RoomEnter { }
+message Microphone { }
+message LightSensor { }
+message ProximitySensor { }
+message IR { }
+message Temperature { }
+message Humidity { }
+message Time { }
