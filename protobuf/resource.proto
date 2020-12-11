@@ -1,4 +1,5 @@
 syntax = "proto3";
+package naki3d.common.protocol;
 
 message Resource {
     oneof data {

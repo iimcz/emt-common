@@ -1,4 +1,5 @@
 syntax = "proto3";
+package naki3d.common.protocol;
 
 // Can be used both for device <-> device as well as RasPi -> Device
 message InteracationInfo {

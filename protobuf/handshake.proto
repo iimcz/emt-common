@@ -1,5 +1,6 @@
 syntax = "proto3";
 import "resource.proto";
+package naki3d.common.protocol;
 
 // Device -> Server
 message ConnectionRequest {

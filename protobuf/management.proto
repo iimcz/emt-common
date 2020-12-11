@@ -1,4 +1,5 @@
 syntax = "proto3";
+package naki3d.common.protocol;
 
 // We've covered there's going to be an optional management app, but not the capabilities, just a placeholder
 message ManagementRequest {
