@@ -4,13 +4,15 @@ package naki3d.common.protocol;
 message Resource {
     oneof data {
       Scene3D scene = 1;
-      Image image = 2;
-      Video video = 3;
+      Model3D model = 2;
+      Image image = 3;
+      Video video = 4;
     }
-    string interactions = 4; // Probably JSON, we've agreed there's no point in binding it on protobuf layer
+    string input_mapping = 5; // Probably JSON, we've agreed there's no point in binding it on protobuf layer
+    repeated EventScript additional_scripts = 6;
 }
 
-message Scene3D {
+message Model3D {
   bytes gltf = 1; // GLTF contains models, composition, textures, everything sould be contained
 }
 
@@ -34,4 +36,35 @@ message Video {
   }
   VideoCodec video_codec = 2;
   AudioCodec audio_codec = 3;
+}
+
+message Scene3D {
+  Environment environment = 1;
+  string datapack_id = 2;
+  // alternatively
+  //bytes datapack_payload = 2;
+
+}
+
+message Environment {
+  enum Engine {
+    UNITY = 0; // The only initially supported option.
+    //GODOT = 1;
+    //UNREAL = 2;
+    //CUSTOM = 3;
+  }
+  Engine engine_type = 1;
+  string engine_version = 2;
+  // Following could be added later to allow windows support.
+  // We'd have to solve rebooting, running other content on win as well, etc.
+  //enum OS {
+  //  LINUX = 0;
+  //  WINDOWS = 1;
+  //}
+  //OS target_os = 3;
+}
+
+message EventScript {
+  string name = 1;
+  string id = 3;
 }
