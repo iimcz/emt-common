@@ -1,3 +1,8 @@
+// This file contains initial connection setup messages,
+// which are sent in a specific order (noted above the message).
+// Other contained messages are for further connection management
+// and should bewrapped in a generid client/server message.
+
 syntax = "proto3";
 package naki3d.common.protocol;
 
@@ -31,20 +36,19 @@ enum DeviceType {
   DEVICE_TYPE_PGE = 2;
 }
 
-// Device -> Server
+// (1) Device -> Server
 message ConnectionRequest {
   string connection_id = 1; // *unique* ID of connecting PC (e.g. hostname)
   bytes public_key = 2;     // Used to later generate (or renew) a certificate for the device.
   // TODO: authentication? maybe rely on already present certificate?
 }
 
-// Server -> Device
+// (2) Server -> Device
 message ConnectionAcknowledgement {
   string connection_id = 1; // server echoes ID back
   bool verified = 2;        // whether the device is already known to the server
 }
 
-// Device -> Server
 // Information for the server to filter out what content
 // the device is capable of (interactively) displaying.
 message DeviceDescriptor {
@@ -55,7 +59,11 @@ message DeviceDescriptor {
   repeated SensorType localSensors = 3;
 }
 
-// Server -> Device
+// Basically an empty ping message, just to maintain connection.
+message Ping {
+  string connection_id = 1;
+}
+
 // For setting up p2p encryption in case of 
 message EncryptionInfo {
   bytes deviceCertificate = 1;        // Certificate signed by the server to identify the device.

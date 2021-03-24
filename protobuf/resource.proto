@@ -2,14 +2,14 @@ syntax = "proto3";
 package naki3d.common.protocol;
 
 message Resource {
-    oneof data {
-      Scene3D scene = 1;
-      Model3D model = 2;
-      Image image = 3;
-      Video video = 4;
-    }
-    string input_mapping = 5; // Probably JSON, we've agreed there's no point in binding it on protobuf layer
-    repeated EventScript additional_scripts = 6;
+  oneof data {
+    Scene3D scene = 1;
+    Model3D model = 2;
+    Image image = 3;
+    Video video = 4;
+  }
+  string input_mapping = 5; // Probably JSON, we've agreed there's no point in binding it on protobuf layer
+  repeated EventScript additional_scripts = 6;
 }
 
 message Model3D {

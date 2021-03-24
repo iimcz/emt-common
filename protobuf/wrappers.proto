@@ -1,0 +1,33 @@
+// Contains wrappers for server - display device communication
+
+syntax = "proto3";
+package naki3d.common.protocol;
+
+import "connection.proto";
+import "commands.proto";
+
+// Server -> Device
+// Message wrapper to allow identifying which message was sent using protobuf.
+message ServerMessage {
+  string connection_id = 1;
+  // 2 through 15 reserved
+  oneof message {
+      // connection.proto
+      EncryptionInfo encryption_info = 16;
+      // commands.proto
+      LoadPackage load_package = 17;
+      ClearPackage clear_package = 18;
+  }
+}
+
+// Device -> Server
+// Message wrapper, same as above.
+message DeviceMessage {
+  string connection_id = 1;
+  // 2 through 15 reserved
+  oneof message {
+    // connection.proto
+    DeviceDescriptor device_descriptor = 16;
+    Ping ping = 17;
+  }
+}
