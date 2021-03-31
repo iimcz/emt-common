@@ -61,7 +61,6 @@ message DeviceDescriptor {
 
 // Basically an empty ping message, just to maintain connection.
 message Ping {
-  string connection_id = 1;
 }
 
 // For setting up p2p encryption in case of 
