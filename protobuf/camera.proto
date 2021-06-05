@@ -4,17 +4,17 @@ package naki3d.common.protocol;
 import "types.proto";
 
 enum GestureType {
-  GESTURE_WAVING = 1;
-  GESTURE_SWIPE_LEFT = 2;
-  GESTURE_SWIPE_RIGHT = 3;
-  GESTURE_SWIPE_UP = 4;
-  GESTURE_SWIPE_DOWN = 5;
-  GESTURE_PUSH = 6;
+  GESTURE_WAVING = 0;
+  GESTURE_SWIPE_LEFT = 1;
+  GESTURE_SWIPE_RIGHT = 2;
+  GESTURE_SWIPE_UP = 3;
+  GESTURE_SWIPE_DOWN = 4;
+  GESTURE_PUSH = 5;
 }
 
 enum HandType {
-  HAND_LEFT = 1;
-  HAND_RIGHT = 2;
+  HAND_LEFT = 0;
+  HAND_RIGHT = 1;
 }
 
 // Raspi -> Device
