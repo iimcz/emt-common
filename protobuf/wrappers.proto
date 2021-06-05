@@ -8,6 +8,8 @@ import "commands.proto";
 
 import "sensor.proto";
 import "camera.proto";
+import "keyboard.proto";
+import "mouse.proto";
 
 // Server -> Device
 // Message wrapper to allow identifying which message was sent using protobuf.
@@ -45,6 +47,10 @@ message SensorMessage {
         GestureData gesture = 16; // Keeping some space for extra info
         HandMovementData hand_movement = 17;
         BestUserChangedData best_user_changed = 18;
+        KeyboardUpdateData keyboard_update = 19;
+        MouseMoveData mouse_move = 20;
+        MouseButtonData mouse_button = 21;
+        MouseScrollData mouse_scroll = 22;
     }
 }
 
