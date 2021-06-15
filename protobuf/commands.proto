@@ -1,12 +1,10 @@
 syntax = "proto3";
 package naki3d.common.protocol;
 
-import "resource.proto";
-
 // Instructs the device to load the specified resource and
 // start displaying it.
 message LoadPackage {
-    Resource data = 1;
+    string descriptor_json = 1;
     bool is_preview = 2; // Loading for preview could skip dependencies for faster download.
 }
 
