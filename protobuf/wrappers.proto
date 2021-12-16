@@ -51,6 +51,8 @@ message SensorMessage {
         MouseMoveData mouse_move = 20;
         MouseButtonData mouse_button = 21;
         MouseScrollData mouse_scroll = 22;
+        UltrasonicDistanceData ultrasonic_distance = 23;
+        LightLevelData light_level = 24;
     }
 }
 
