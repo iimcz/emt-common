@@ -67,9 +67,6 @@
                             "$ref": "#/definitions/mappings/gesture"
                         },
                         {
-                            "$ref": "#/definitions/mappings/gestureDrag"
-                        },
-                        {
                             "$ref": "#/definitions/mappings/valueTrigger"
                         },
                         {
@@ -118,30 +115,6 @@
                 ],
                 "additionalProperties": false
             },
-            "gestureDrag": {
-                "type": "object",
-                "properties": {
-                    "source": {
-                        "type": "string"
-                    },
-                    "startGesture": {
-                        "type": "string"
-                    },
-                    "endGesture": {
-                        "type": "string"
-                    },
-                    "position": {
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "source",
-                    "startGesture",
-                    "endGesture",
-                    "position"
-                ],
-                "additionalProperties": false
-            },
             "value": {
                 "type": "object",
                 "properties": {
@@ -172,12 +145,20 @@
                     },
                     "threshold": {
                         "type": "string"
+                    },
+                    "thresholdType": {
+                        "type": "string",
+                        "enum": [
+                            "integer",
+                            "float"
+                        ]
                     }
                 },
                 "required": [
                     "source",
                     "condition",
-                    "threshold"
+                    "threshold",
+                    "thresholdType"
                 ],
                 "additionalProperties": false
             }
