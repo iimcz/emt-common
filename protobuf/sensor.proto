@@ -34,3 +34,12 @@ message UltrasonicDistanceData {
 message LightLevelData {
     float level = 1;
 }
+
+enum PirMovementEvent {
+    MOVEMENT_STARTED = 0;
+    MOVEMENT_STOPPED = 1;
+}
+
+message PirMovementData {
+    PirMovementEvent event = 1;
+}

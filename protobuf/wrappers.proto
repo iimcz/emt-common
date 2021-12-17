@@ -54,7 +54,8 @@ message SensorMessage {
         MouseScrollData mouse_scroll = 22;
         UltrasonicDistanceData ultrasonic_distance = 23;
         LightLevelData light_level = 24;
-	EventData event = 25;
+		EventData event = 25;
+		PirMovementData pir_movement = 26;
     }
 }
 
