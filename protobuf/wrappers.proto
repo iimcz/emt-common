@@ -10,6 +10,7 @@ import "sensor.proto";
 import "camera.proto";
 import "keyboard.proto";
 import "mouse.proto";
+import "event.proto";
 
 // Server -> Device
 // Message wrapper to allow identifying which message was sent using protobuf.
@@ -53,6 +54,7 @@ message SensorMessage {
         MouseScrollData mouse_scroll = 22;
         UltrasonicDistanceData ultrasonic_distance = 23;
         LightLevelData light_level = 24;
+	EventData event = 25;
     }
 }
 
