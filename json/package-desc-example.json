@@ -58,7 +58,7 @@
             "fileName": "123.mp4",
             "loop": true,
             "autoStart": true,
-            "aspectRatio": 1,
+            "aspectRatio": "fitInside",
             "backgroundColor": "#FF00FF",
             "videoEvents": [
                 {
