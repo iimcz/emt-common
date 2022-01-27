@@ -1,0 +1,264 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema",
+    "definitions": {
+        "parameters": {
+            "type": "object",
+            "oneOf": [
+                {
+                    "$ref": "#/definitions/sceneParameters"
+                },
+                {
+                    "$ref": "#/definitions/galleryParameters"
+                },
+                {
+                    "$ref": "#/definitions/modelParameters"
+                },
+                {
+                    "$ref": "#/definitions/videoParameters"
+                }
+            ]
+        },
+        "sceneParameters": {
+            "type": "object",
+            "properties": {
+                "displayType": {
+                    "const": "scene"
+                }
+            },
+            "additionalProperties": false
+        },
+        "galleryParameters": {
+            "type": "object",
+            "properties": {
+                "displayType": {
+                    "const": "gallery"
+                },
+                "settings": {
+                    "type": "object",
+                    "properties": {
+                        "layoutType": {
+                            "enum": ["grid", "list"]
+                        },
+                        "layout": {
+                            "type": "object",
+                            "oneOf": [
+                                {
+                                    "properties": {
+                                        "width": {
+                                            "type": "number"
+                                        },
+                                        "height": {
+                                            "type": "number"
+                                        },
+                                        "verticalSpacing": {
+                                            "type": "number"
+                                        },
+                                        "horizontalSpacing": {
+                                            "type": "number"
+                                        },
+                                        "images": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/galleryImage"
+                                            }
+                                        },
+                                        "additionalProperties": false
+                                    }
+                                },
+                                {
+                                    "properties": {
+                                        "visibleImages": {
+                                            "type": "number"
+                                        },
+                                        "spacing": {
+                                            "type": "number"
+                                        },
+                                        "images": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/galleryImage"
+                                            }
+                                        },
+                                        "additionalProperties": false
+                                    }
+                                }
+                            ]
+                        },
+                        "padding": {
+                            "$ref": "package-utils-schema.json#/definitions/vector2"
+                        },
+                        "scrollDelay": {
+                            "type": "number"
+                        },
+                        "slideAnimationLength": {
+                            "type": "number"
+                        },
+                        "backgroundColor": {
+                            "$ref": "package-utils-schema.json#/definitions/color3"
+                        }
+                    },
+                    "additionalProperties": false
+                }
+            }
+
+        },
+        "modelParameters": {
+            "properties": {
+                "displayType": {
+                    "const": "model"
+                },
+                "settings": {
+                    "type": "object",
+                    "properties": {
+                        "fileName": {
+                            "type": "string"
+                        },
+                        "skybox": {
+                            "type": "string"
+                        },
+                        "skyboxTint": {
+                            "$ref": "package-utils-schema.json#/definitions/color3"
+                        },
+                        "cameraAnimation": {
+                            "type": "object",
+                            "properties": {
+                                "origin": {
+                                    "$ref": "#/definitions/modelCameraTarget"
+                                },
+                                "lookAt": {
+                                    "$ref": "#/definitions/modelCameraTarget"
+                                },
+                                "distance": {
+                                    "type": "number"
+                                },
+                                "height": {
+                                    "type": "number"
+                                },
+                                "revolutionTime": {
+                                    "type": "number"
+                                }
+                            },
+                            "additionalProperties": false
+                        },
+                        "flagInteraction": {
+                            "type": "number"
+                        },
+                        "flags": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/modelFlag"
+                            }
+                        }
+                    },
+                    "additionalProperties": false
+                }
+            },
+            "additionalProperties": false
+        },
+        "videoParameters": {
+            "type": "object",
+            "properties": {
+                "displayType": {
+                    "const": "video"
+                },
+                "settings": {
+                    "type": "object",
+                    "properties": {
+                        "fileName": {
+                            "type": "string"
+                        },
+                        "loop": {
+                            "type": "boolean"
+                        },
+                        "autoStart": {
+                            "type": "boolean"
+                        },
+                        "aspectRatio": {
+                            "type": "number"
+                        },
+                        "backgroundColor": {
+                            "$ref": "package-utils-schema.json#/definitions/color3"
+                        },
+                        "videoEvents": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/videoEvent"
+                            }
+                        }
+                    },
+                    "additionalProperties": false
+                }
+            },
+            "additionalProperties": false
+        },
+        "galleryImage": {
+            "type": "object",
+            "properties": {
+                "fileName": {
+                    "type": "string"
+                },
+                "activatedAction": {
+                    "type": "string"
+                },
+                "selectedAction": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false
+        },
+        "modelCameraTarget": {
+            "type": "object",
+            "properties": {
+                "objectName": {
+                    "type": "string"
+                },
+                "offset": {
+                    "$ref": "package-utils-schema.json#/definitions/vector3"
+                }
+            },
+            "additionalProperties": false
+        },
+        "modelFlag": {
+            "type": "object",
+            "properties": {
+                "location": {
+                    "$ref": "package-utils-schema.json#/definitions/vector3"
+                },
+                "text": {
+                    "type": "string"
+                },
+                "activatedAction": {
+                    "type": "string"
+                },
+                "selectedAction": {
+                    "type": "string"
+                },
+                "foregroundColor": {
+                    "$ref": "package-utils-schema.json#/definitions/color3"
+                },
+                "backgroundColor": {
+                    "$ref": "package-utils-schema.json#/definitions/color3"
+                },
+                "stalkColor": {
+                    "$ref": "package-utils-schema.json#/definitions/color3"
+                },
+                "canSelect": {
+                    "type": "boolean"
+                }
+            },
+            "additionalProperties": false
+        },
+        "videoEvent": {
+            "type": "object",
+            "properties": {
+                "timestamp": {
+                    "type": "number"
+                },
+                "eventName": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false
+        }
+    }
+}

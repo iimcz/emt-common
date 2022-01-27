@@ -1,0 +1,127 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "definitions": {
+        "action": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string",
+                    "enum": [
+                        "event",
+                        "gesture",
+                        "gestureDrag",
+                        "valueTrigger",
+                        "value"
+                    ]
+                },
+                "mapping": {
+                    "type": "object",
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/mappings/event"
+                        },
+                        {
+                            "$ref": "#/definitions/mappings/gesture"
+                        },
+                        {
+                            "$ref": "#/definitions/mappings/valueTrigger"
+                        },
+                        {
+                            "$ref": "#/definitions/mappings/value"
+                        }
+                    ]
+                }
+            },
+            "required": [
+                "name",
+                "type",
+                "mapping"
+            ],
+            "additionalProperties": false
+        },
+        "mappings": {
+            "event": {
+                "type": "object",
+                "properties": {
+                    "source": {
+                        "type": "string"
+                    },
+                    "eventName": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "source",
+                    "eventName"
+                ],
+                "additionalProperties": false
+            },
+            "gesture": {
+                "type": "object",
+                "properties": {
+                    "source": {
+                        "type": "string"
+                    },
+                    "gestureName": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "source",
+                    "gestureName"
+                ],
+                "additionalProperties": false
+            },
+            "value": {
+                "type": "object",
+                "properties": {
+                    "source": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "source"
+                ],
+                "additionalProperties": false
+            },
+            "valueTrigger": {
+                "type": "object",
+                "properties": {
+                    "source": {
+                        "type": "string"
+                    },
+                    "condition": {
+                        "type": "string",
+                        "enum": [
+                            "above",
+                            "below",
+                            "aboveOrEquals",
+                            "belowOrEquals",
+                            "equals"
+                        ]
+                    },
+                    "threshold": {
+                        "type": "string"
+                    },
+                    "thresholdType": {
+                        "type": "string",
+                        "enum": [
+                            "integer",
+                            "float"
+                        ]
+                    }
+                },
+                "required": [
+                    "source",
+                    "condition",
+                    "threshold",
+                    "thresholdType"
+                ],
+                "additionalProperties": false
+            }
+        }
+    }
+}
