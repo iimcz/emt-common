@@ -4,15 +4,13 @@
         "action": {
             "type": "object",
             "properties": {
-                "name": {
+                "effect": {
                     "type": "string"
                 },
                 "type": {
                     "type": "string",
                     "enum": [
                         "event",
-                        "gesture",
-                        "gestureDrag",
                         "valueTrigger",
                         "value"
                     ]
@@ -24,9 +22,6 @@
                             "$ref": "#/definitions/mappings/event"
                         },
                         {
-                            "$ref": "#/definitions/mappings/gesture"
-                        },
-                        {
                             "$ref": "#/definitions/mappings/valueTrigger"
                         },
                         {
@@ -36,7 +31,7 @@
                 }
             },
             "required": [
-                "name",
+                "effect",
                 "type",
                 "mapping"
             ],
@@ -59,27 +54,23 @@
                 ],
                 "additionalProperties": false
             },
-            "gesture": {
-                "type": "object",
-                "properties": {
-                    "source": {
-                        "type": "string"
-                    },
-                    "gestureName": {
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "source",
-                    "gestureName"
-                ],
-                "additionalProperties": false
-            },
             "value": {
                 "type": "object",
                 "properties": {
                     "source": {
                         "type": "string"
+                    },
+                    "inMin": {
+                        "type": "number"
+                    },
+                    "inMax": {
+                        "type": "number"
+                    },
+                    "outMin": {
+                        "type": "number"
+                    },
+                    "outMax": {
+                        "type": "number"
                     }
                 },
                 "required": [

@@ -45,6 +45,12 @@
             "type": "object",
             "additionalProperties": false,
             "properties": {
+                "packageName": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
                 "author": {
                     "type": "string"
                 },

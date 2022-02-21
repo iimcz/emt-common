@@ -204,10 +204,10 @@
                 "fileName": {
                     "type": "string"
                 },
-                "activatedAction": {
+                "activatedEvent": {
                     "type": "string"
                 },
-                "selectedAction": {
+                "selectedEvent": {
                     "type": "string"
                 }
             },
