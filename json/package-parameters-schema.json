@@ -15,6 +15,9 @@
                 },
                 {
                     "$ref": "#/definitions/videoParameters"
+                },
+                {
+                    "$ref": "#/definitions/panoramaParameters"
                 }
             ]
         },
@@ -191,6 +194,31 @@
                             "items": {
                                 "$ref": "#/definitions/videoEvent"
                             }
+                        }
+                    },
+                    "additionalProperties": false
+                }
+            },
+            "additionalProperties": false
+        },
+        "panoramaParameters": {
+            "type": "object",
+            "properties": {
+                "displayType": {
+                    "type": "string",
+                    "const": "panorama"
+                },
+                "settings": {
+                    "type": "object",
+                    "properties": {
+                        "fileName": {
+                            "type": "string"
+                        },
+                        "rotationSpeed": {
+                            "type": "number"
+                        },
+                        "cameraVerticalAngle": {
+                            "type": "number"
                         }
                     },
                     "additionalProperties": false
