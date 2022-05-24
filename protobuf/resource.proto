@@ -51,7 +51,7 @@ message Panorama {
   bytes data = 1; //Maybe separate panoramas for left/right eye in future
   //field 2 placeholder for left/right split
   double rotation_speed = 3;
-  double camera_vertical_angle = 3;
+  double camera_vertical_angle = 4;
 }
 
 message Environment {
