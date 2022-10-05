@@ -7,10 +7,11 @@ import "connection.proto";
 import "commands.proto";
 
 import "sensor.proto";
-import "camera.proto";
 import "keyboard.proto";
 import "mouse.proto";
 import "event.proto";
+import "handtracking/mediapipe.proto";
+import "handtracking/realsense.proto";
 
 // Server -> Device
 // Message wrapper to allow identifying which message was sent using protobuf.
@@ -43,9 +44,10 @@ message DeviceMessage {
 message SensorMessage {
     string sensor_id = 1;
     uint64 timestamp = 2; // Microseconds since startup (Camera timing is in microseconds, may as well keep it)
-    // 3 through 15 reserved
+    // 3 through 14 reserved, keeping some space for extra info
     oneof data {
-        GestureData gesture = 16; // Keeping some space for extra info
+        MediapipeHandTrackingData handTracking = 15; 
+        GestureData gesture = 16;
         HandMovementData hand_movement = 17;
         BestUserChangedData best_user_changed = 18;
         KeyboardUpdateData keyboard_update = 19;
@@ -54,8 +56,8 @@ message SensorMessage {
         MouseScrollData mouse_scroll = 22;
         UltrasonicDistanceData ultrasonic_distance = 23;
         LightLevelData light_level = 24;
-		EventData event = 25;
-		PirMovementData pir_movement = 26;
+        EventData event = 25;
+        PirMovementData pir_movement = 26;
     }
 }
 
