@@ -1,0 +1,133 @@
+syntax = "proto3";
+
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+// Should be prefixed with the ASCII string "EMTBCN" on the wire.
+message BeaconMessage {
+    int32 protocol_version = 1;
+    string hostname = 2;
+    // Device type is mostly for display purposes - actual device tree is requested separately.
+    string device_type = 3;
+}
+
+
+message PingRequest {
+    // Payload to expect back from the gRPC server.
+    string msg = 1;
+}
+
+message PingResponse {
+    // Should be same as msg in PingRequest.
+    string echo = 1;
+}
+
+service ConnectionService {
+    // Similar to a network ping, serves to check connectivity since
+    // not all gRPC implementations allow checking if a channel is connected.
+    rpc Ping (PingRequest) returns (PingResponse);
+}
+
+
+message LogsRequest {
+    // How many lines from the end of the log to request.
+    optional int32 lines = 1;
+}
+
+message LogsResponse {
+    repeated string log_line = 1;
+}
+
+message ServiceStatusRequest {
+    // Empty, but can be expected to grow later when
+    // the request gets better defined.
+}
+
+message ServiceStatusResponse {
+    enum ServiceStatus {
+        SERVICE_STOPPED = 0;
+        SERVICE_RUNNING = 1;
+        SERVICE_CRASHED = 2;
+    }
+    message Service {
+        string service_name = 1;
+        ServiceStatus status = 2;
+    }
+    repeated Service services = 1;
+}
+
+service DiagnosticService {
+    // Request contents of the main log file, like the Unity log.
+    rpc GetLogs (LogsRequest) returns (LogsResponse);
+    // Request status of all *relevant* services running on the machine.
+    rpc GetServiceStatus (ServiceStatusRequest) returns (ServiceStatusResponse);
+
+    // TODO: define the rest of the diagnostic service as per development discussion.
+}
+
+
+message LoadPackageRequest {
+    string descriptor_json = 1; // Package descriptor as defined in the json schema in this repository.
+    bool is_preview = 2; // Loading for preview could skip dependencies for faster download.
+}
+
+message ClearStartupPackageRequest {
+    bool purge_data = 1; // Whether the package should be deleted from the cache.
+}
+
+message StartupPackageResponse {
+    // TODO: discuss - could be package ID to imply uniqueness.
+    string package_name = 1;
+}
+
+message SetStartupPackageRequest {
+    // TODO: Same as above
+    string package_name = 1;
+}
+
+message StartPackageRequest {
+    // TODO: Same as above
+    string package_name = 1;
+}
+
+message CachedPackagesResponse {
+    // TODO: discuss - include checksum? package version?
+    message SinglePackage {
+        string package_name = 1;
+        string checksum = 2;
+        google.protobuf.Timestamp download_time = 3;
+    }
+    repeated SinglePackage packages = 1;
+}
+
+service PackageService {
+    // Tell the device to dowload the specified package and save it in the cache.
+    rpc LoadPackage (LoadPackageRequest) returns (google.protobuf.BoolValue);
+    // Set no startup package so that the device stays on the calibration screen next boot.
+    rpc ClearStartupPackage (ClearStartupPackageRequest) returns (google.protobuf.BoolValue);
+    // Ask the device which package is set as startup and will be loaded after calibration.
+    rpc GetStartupPackage (google.protobuf.Empty) returns (StartupPackageResponse);
+    // Set specific startup package to be loaded after calibration.
+    rpc SetStartupPackage (SetStartupPackageRequest) returns (google.protobuf.BoolValue);
+    // Delete all downloaded packages from the cache.
+    rpc PurgeCachedPackages (google.protobuf.Empty) returns (google.protobuf.Empty);
+    // Get information about currently cached packages.
+    rpc GetCachedPackages (google.protobuf.Empty) returns (CachedPackagesResponse);
+    // Run a specific package. Has to be downloaded separately using LoadPackage.
+    rpc StartPackage (StartPackageRequest) returns (google.protobuf.BoolValue);
+}
+
+
+message DeviceDescriptorResponse {
+    // TODO: define here or use json?
+}
+
+service DeviceService {
+    // Ask the device what it is, which sensors it has and other defining characteristics.
+    rpc GetDeviceDescriptor (google.protobuf.Empty) returns (DeviceDescriptorResponse);
+    // Have the device reboot completely.
+    rpc RebootDevice (google.protobuf.Empty) returns (google.protobuf.Empty);
+    // Have the device shut down.
+    rpc ShutdownDevice (google.protobuf.Empty) returns (google.protobuf.Empty);
+}
