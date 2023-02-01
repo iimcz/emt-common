@@ -77,24 +77,20 @@ message ClearStartupPackageRequest {
 }
 
 message StartupPackageResponse {
-    // TODO: discuss - could be package ID to imply uniqueness.
-    string package_name = 1;
+    string package_id = 1;
 }
 
 message SetStartupPackageRequest {
-    // TODO: Same as above
-    string package_name = 1;
+    string package_id = 1;
 }
 
 message StartPackageRequest {
-    // TODO: Same as above
-    string package_name = 1;
+    string package_id = 1;
 }
 
 message CachedPackagesResponse {
-    // TODO: discuss - include checksum? package version?
     message SinglePackage {
-        string package_name = 1;
+        string package_id = 1;
         string checksum = 2;
         google.protobuf.Timestamp download_time = 3;
     }
@@ -118,9 +114,35 @@ service PackageService {
     rpc StartPackage (StartPackageRequest) returns (google.protobuf.BoolValue);
 }
 
+// ====================================
+// TODO: this is taken from the 'discovery' branch. We should just include the relevant
+// file when the branch gets merged into master.
+message SensorDescriptor {
+    string path = 1;
+    string model = 2;
+    DataType data_type = 3;
+}
+
+enum DataType {
+    // Bindable
+    Void = 0;
+    Bool = 1;
+    Integer = 2;
+    Float = 3;
+    String = 4;
+
+    // Passthrough
+    Vector = 5;
+}
+// ====================================
 
 message DeviceDescriptorResponse {
-    // TODO: define here or use json?
+    int32 protocol_version = 1;
+    string hostname = 2;
+    string device_type = 3;
+    string firmware_version = 4;
+
+    repeated SensorDescriptor available_sensors = 5;
 }
 
 service DeviceService {
