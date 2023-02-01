@@ -1,4 +1,7 @@
 syntax = "proto3";
+package naki3d.common.protocol;
+
+// TODO: consider splitting services to separate files.
 
 import "google/protobuf/wrappers.proto";
 import "google/protobuf/empty.proto";
