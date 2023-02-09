@@ -45,7 +45,10 @@
             "type": "object",
             "additionalProperties": false,
             "properties": {
-                "packageName": {
+                "id": {
+                    "type": "string"
+                },
+                "title": {
                     "type": "string"
                 },
                 "description": {
@@ -78,6 +81,8 @@
                 }
             },
             "required": [
+                "id",
+                "title",
                 "author",
                 "exposition"
             ]
@@ -118,9 +123,6 @@
                     },
                     "additionalProperties": false
                 },
-                "selfIndex": {
-                    "type": "integer"
-                },
                 "elements": {
                     "type": "array",
                     "items": {
@@ -131,6 +133,9 @@
                                 "type": "string"
                             },
                             "hostname": {
+                                "type": "string"
+                            },
+                            "address": {
                                 "type": "string"
                             },
                             "viewportTransform": {
@@ -147,8 +152,7 @@
             },
             "required": [
                 "canvasDimensions",
-                "elements",
-                "selfIndex"
+                "elements"
             ]
         }
     }

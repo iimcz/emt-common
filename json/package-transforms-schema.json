@@ -1,0 +1,391 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "definitions": {
+        "void": {
+            "constant": {
+                "type": "object",
+                "properties": {
+                    "from": {
+                        "type": "string",
+                        "const": "bool"
+                    },
+                    "type": {
+                        "type": "string",
+                        "const": "constant"
+                    },
+                    "value": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "from",
+                    "type",
+                    "value"
+                ],
+                "additionalProperties": false
+            }
+        },
+        "bool": {
+            "if": {
+                "type": "object",
+                "properties": {
+                    "from": {
+                        "type": "string",
+                        "const": "bool"
+                    },
+                    "type": {
+                        "type": "string",
+                        "const": "if"
+                    },
+                    "comparisonType": {
+                        "type": "string",
+                        "const": "equals"
+                    },
+                    "comparisonValue": {
+                        "type": "boolean"
+                    }
+                }
+            },
+            "negate": {
+                "type": "object",
+                "properties": {
+                    "from": {
+                        "type": "string",
+                        "const": "bool"
+                    },
+                    "type": {
+                        "type": "string",
+                        "const": "negate"
+                    },
+                    "value": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "from",
+                    "type",
+                    "value"
+                ],
+                "additionalProperties": false
+            },
+            "map": {
+                "type": "object",
+                "properties": {
+                    "from": {
+                        "type": "string",
+                        "const": "bool"
+                    },
+                    "type": {
+                        "type": "string",
+                        "const": "map"
+                    },
+                    "inMin": {
+                        "type": "boolean",
+                        "const": false
+                    },
+                    "inMax": {
+                        "type": "boolean",
+                        "const": true
+                    },
+                    "outMin": {
+                        "type": "string"
+                    },
+                    "outMax": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "from",
+                    "type",
+                    "inMin",
+                    "inMax",
+                    "outMin",
+                    "outMax"
+                ],
+                "additionalProperties": false
+            },
+            "toString": {
+                "type": "object",
+                "properties": {
+                    "from": {
+                        "type": "string",
+                        "const": "bool"
+                    },
+                    "type": {
+                        "type": "string",
+                        "const": "toString"
+                    }
+                },
+                "required": [
+                    "from",
+                    "type"
+                ],
+                "additionalProperties": false
+            }
+        },
+        "integer": {
+            "if": {
+                "type": "object",
+                "properties": {
+                    "from": {
+                        "type": "string",
+                        "const": "integer"
+                    },
+                    "type": {
+                        "type": "string",
+                        "const": "if"
+                    },
+                    "comparisonType": {
+                        "type": "string",
+                        "enum": [
+                            "equals",
+                            "greaterThan",
+                            "lowerThan",
+                            "greaterOrEquals",
+                            "lowerOrEquals",
+                            "inRange"
+                        ]
+                    },
+                    "comparisonValue": {
+                        "type": "number"
+                    },
+                    "rangeMaxValue": {
+                        "type": "number"
+                    }
+                },
+                "required": [
+                    "from",
+                    "type",
+                    "comparisonType",
+                    "comparisonValue"
+                ],
+                "additionalProperties": false
+            },
+            "map": {
+                "type": "object",
+                "properties": {
+                    "from": {
+                        "type": "string",
+                        "const": "integer"
+                    },
+                    "type": {
+                        "type": "string",
+                        "const": "map"
+                    },
+                    "inMin": {
+                        "type": "number"
+                    },
+                    "inMax": {
+                        "type": "number"
+                    },
+                    "outMin": {
+                        "type": "number"
+                    },
+                    "outMax": {
+                        "type": "number"
+                    }
+                },
+                "required": [
+                    "from",
+                    "type",
+                    "inMin",
+                    "inMax",
+                    "outMin",
+                    "outMax"
+                ],
+                "additionalProperties": false
+            },
+            "toString": {
+                "type": "object",
+                "properties": {
+                    "from": {
+                        "type": "string",
+                        "const": "integer"
+                    },
+                    "type": {
+                        "type": "string",
+                        "const": "toString"
+                    }
+                },
+                "required": [
+                    "from",
+                    "type"
+                ],
+                "additionalProperties": false
+            }
+        },
+        "float": {
+            "if": {
+                "type": "object",
+                "properties": {
+                    "from": {
+                        "type": "string",
+                        "const": "float"
+                    },
+                    "type": {
+                        "type": "string",
+                        "const": "if"
+                    },
+                    "comparisonType": {
+                        "type": "string",
+                        "enum": [
+                            "equals",
+                            "greaterThan",
+                            "lowerThan",
+                            "greaterOrEquals",
+                            "lowerOrEquals",
+                            "inRange"
+                        ]
+                    },
+                    "comparisonValue": {
+                        "type": "number"
+                    },
+                    "rangeMaxValue": {
+                        "type": "number"
+                    }
+                },
+                "required": [
+                    "from",
+                    "type",
+                    "comparisonType",
+                    "comparisonValue"
+                ],
+                "additionalProperties": false
+            },
+            "round": {
+                "type": "object",
+                "properties": {
+                    "from": {
+                        "type": "string",
+                        "const": "float"
+                    },
+                    "type": {
+                        "type": "string",
+                        "const": "round"
+                    },
+                    "roundingMethod": {
+                        "type": "string",
+                        "enum": [
+                            "up",
+                            "down"
+                        ]
+                    }
+                },
+                "required": [
+                    "from",
+                    "type",
+                    "roundingMethod"
+                ],
+                "additionalProperties": false
+            },
+            "map": {
+                "type": "object",
+                "properties": {
+                    "from": {
+                        "type": "string",
+                        "const": "float"
+                    },
+                    "type": {
+                        "type": "string",
+                        "const": "map"
+                    },
+                    "inMin": {
+                        "type": "number"
+                    },
+                    "inMax": {
+                        "type": "number"
+                    },
+                    "outMin": {
+                        "type": "number"
+                    },
+                    "outMax": {
+                        "type": "number"
+                    }
+                },
+                "required": [
+                    "from",
+                    "type",
+                    "inMin",
+                    "inMax",
+                    "outMin",
+                    "outMax"
+                ],
+                "additionalProperties": false
+            },
+            "toString": {
+                "type": "object",
+                "properties": {
+                    "from": {
+                        "type": "string",
+                        "const": "float"
+                    },
+                    "type": {
+                        "type": "string",
+                        "const": "toString"
+                    }
+                },
+                "required": [
+                    "from",
+                    "type"
+                ],
+                "additionalProperties": false
+            }
+        },
+        "string": {
+            "if": {
+                "type": "object",
+                "properties": {
+                    "from": {
+                        "type": "string",
+                        "const": "string"
+                    },
+                    "type": {
+                        "type": "string",
+                        "const": "if"
+                    },
+                    "comparisonType": {
+                        "type": "string",
+                        "enum": [
+                            "startsWith",
+                            "endsWith",
+                            "equals",
+                            "contains"
+                        ]
+                    },
+                    "comparisonValue": {
+                        "type": "string"
+                    },
+                    "passValue": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "from",
+                    "type",
+                    "comparisonType",
+                    "comparisonValue",
+                    "passValue"
+                ],
+                "additionalProperties": false
+            },
+            "parse": {
+                "type": "object",
+                "properties": {
+                    "from": {
+                        "type": "string",
+                        "const": "string"
+                    },
+                    "type": {
+                        "type": "string",
+                        "const": "parse"
+                    }
+                },
+                "required": [
+                    "from",
+                    "type"
+                ],
+                "additionalProperties": false
+            }
+        }
+    }
+}

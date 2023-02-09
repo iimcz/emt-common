@@ -10,24 +10,76 @@
                 "type": {
                     "type": "string",
                     "enum": [
-                        "event",
-                        "valueTrigger",
-                        "value"
+                        "void",
+                        "bool",
+                        "integer",
+                        "float",
+                        "string",
+
+                        "complex"
                     ]
                 },
                 "mapping": {
                     "type": "object",
-                    "oneOf": [
-                        {
-                            "$ref": "#/definitions/mappings/event"
+                    "properties": {
+                        "source": {
+                            "type": "string"
                         },
-                        {
-                            "$ref": "#/definitions/mappings/valueTrigger"
-                        },
-                        {
-                            "$ref": "#/definitions/mappings/value"
+                        "transform": {
+                            "oneOf": [
+                                {
+                                    "$ref": "package-transforms-schema.json#/definitions/void/constant"
+                                },
+
+                                {
+                                    "$ref": "package-transforms-schema.json#/definitions/bool/if"
+                                },
+                                {
+                                    "$ref": "package-transforms-schema.json#/definitions/bool/negate"
+                                },
+                                {
+                                    "$ref": "package-transforms-schema.json#/definitions/bool/map"
+                                },
+                                {
+                                    "$ref": "package-transforms-schema.json#/definitions/bool/toString"
+                                },
+
+                                {
+                                    "$ref": "package-transforms-schema.json#/definitions/integer/if"
+                                },
+                                {
+                                    "$ref": "package-transforms-schema.json#/definitions/integer/map"
+                                },
+                                {
+                                    "$ref": "package-transforms-schema.json#/definitions/integer/toString"
+                                },
+
+                                {
+                                    "$ref": "package-transforms-schema.json#/definitions/float/if"
+                                },
+                                {
+                                    "$ref": "package-transforms-schema.json#/definitions/float/round"
+                                },
+                                {
+                                    "$ref": "package-transforms-schema.json#/definitions/float/map"
+                                },
+                                {
+                                    "$ref": "package-transforms-schema.json#/definitions/float/toString"
+                                },
+
+                                {
+                                    "$ref": "package-transforms-schema.json#/definitions/string/if"
+                                },
+                                {
+                                    "$ref": "package-transforms-schema.json#/definitions/string/parse"
+                                }
+                            ]
                         }
-                    ]
+                    },
+                    "required": [
+                        "source"
+                    ],
+                    "additionalProperties": false
                 }
             },
             "required": [
@@ -36,83 +88,6 @@
                 "mapping"
             ],
             "additionalProperties": false
-        },
-        "mappings": {
-            "event": {
-                "type": "object",
-                "properties": {
-                    "source": {
-                        "type": "string"
-                    },
-                    "eventName": {
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "source",
-                    "eventName"
-                ],
-                "additionalProperties": false
-            },
-            "value": {
-                "type": "object",
-                "properties": {
-                    "source": {
-                        "type": "string"
-                    },
-                    "inMin": {
-                        "type": "number"
-                    },
-                    "inMax": {
-                        "type": "number"
-                    },
-                    "outMin": {
-                        "type": "number"
-                    },
-                    "outMax": {
-                        "type": "number"
-                    }
-                },
-                "required": [
-                    "source"
-                ],
-                "additionalProperties": false
-            },
-            "valueTrigger": {
-                "type": "object",
-                "properties": {
-                    "source": {
-                        "type": "string"
-                    },
-                    "condition": {
-                        "type": "string",
-                        "enum": [
-                            "above",
-                            "below",
-                            "aboveOrEquals",
-                            "belowOrEquals",
-                            "equals"
-                        ]
-                    },
-                    "threshold": {
-                        "type": "string"
-                    },
-                    "thresholdType": {
-                        "type": "string",
-                        "enum": [
-                            "integer",
-                            "float"
-                        ]
-                    }
-                },
-                "required": [
-                    "source",
-                    "condition",
-                    "threshold",
-                    "thresholdType"
-                ],
-                "additionalProperties": false
-            }
         }
     }
 }

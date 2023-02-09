@@ -7,6 +7,8 @@
     },
 
     "metadata": {
+        "id": "42",
+        "title": "TWA IPW package",
         "author": "Me",
         "exposition": "This week's art",
         "other": [
@@ -17,36 +19,45 @@
 
     "inputs": [
         {
-            "name": "ActionA",
-            "type": "gesture",
+            "effect": "ActionA",
+            "type": "complex",
             "mapping": {
-                "source": "mainWall_camera1",
-                "gestureName": "swipeLeft"
+                "source": "mainWall_camera1"
             }
         },
         {
-            "name": "ActionB",
-            "type": "value",
+            "effect": "ActionB",
+            "type": "bool",
             "mapping": {
-                "source": "raspi1_temperature"
+                "source": "raspi1_temperature",
+                "transform": {
+                    "from": "integer",
+                    "type": "if",
+                    "comparisonType": "equals",
+                    "comparisonValue": 10
+                }
             }
         },
         {
-            "name": "ActionC",
-            "type": "valueTrigger",
+            "effect": "ActionC",
+            "type": "integer",
             "mapping": {
                 "source": "raspi1_volume",
-                "condition": "above",
-                "threshold": "1.0",
-                "thresholdType": "float"
+                "transform": {
+                    "from": "float",
+                    "type": "map",
+                    "inMin": 0,
+                    "inMax": 1,
+                    "outMin": 0,
+                    "outMax": 100
+                }
             }
         },
         {
-            "name": "ActionD",
-            "type": "event",
+            "effect": "ActionD",
+            "type": "string",
             "mapping": {
-                "source": "secondaryWall_events",
-                "eventName": "stop"
+                "source": "secondaryWall_events"
             }
         }
     ],
@@ -74,16 +85,17 @@
             "width": 3640,
             "height": 1024
         },
-        "selfIndex": 0,
         "elements": [
             {
                 "role": "primary",
                 "hostname": "mainWall",
+                "address": "192.168.1.1",
                 "viewportTransform": "1920x1024+100+0"
             },
             {
                 "role": "secondary",
                 "hostname": "secondaryWall",
+                "address": "192.168.1.2",
                 "viewportTransform": "1920x1024-100+0"
             }
         ]
