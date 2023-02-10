@@ -7,8 +7,8 @@ import "google/protobuf/wrappers.proto";
 import "google/protobuf/empty.proto";
 import "google/protobuf/timestamp.proto";
 
-// Should be prefixed with the ASCII string "EMTBCN" on the wire.
 message BeaconMessage {
+    // Current version is 2
     int32 protocol_version = 1;
     string hostname = 2;
     // Device type is mostly for display purposes - actual device tree is requested separately.
