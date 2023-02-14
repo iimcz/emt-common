@@ -1,13 +1,13 @@
 syntax = "proto3";
 package naki3d.common.protocol;
 
-// TODO: consider splitting services to separate files.
-
-import "discovery.proto";
-
 import "google/protobuf/wrappers.proto";
 import "google/protobuf/empty.proto";
 import "google/protobuf/timestamp.proto";
+
+import "discovery.proto";
+
+// TODO: consider splitting services to separate files.
 
 message BeaconMessage {
     // Current version is 2
@@ -104,5 +104,5 @@ service DeviceService {
     // Ask the device what it is, which sensors it has and other defining characteristics.
     rpc GetDeviceDescriptor (google.protobuf.Empty) returns (DeviceDescriptorResponse);
     // Sets the device audio level 0.0 - 1.0
-    rpc SetVolume (float) returns (google.protobuf.Empty);
+    rpc SetVolume (google.protobuf.FloatValue) returns (google.protobuf.Empty);
 }
