@@ -3,32 +3,26 @@
 syntax = "proto3";
 package naki3d.common.protocol;
 
-import "sensor.proto";
-import "keyboard.proto";
-import "mouse.proto";
-import "event.proto";
-import "handtracking/mediapipe.proto";
-import "handtracking/realsense.proto";
+import "cec.proto";
+import "types.proto";
+
+import "google/protobuf/empty.proto";
 
 // RasPi -> Device
 // Message wrapper, same as above.
 message SensorMessage {
-    string sensor_id = 1;
+    string path = 1;
     uint64 timestamp = 2; // Microseconds since startup (Camera timing is in microseconds, may as well keep it)
-    // 3 through 14 reserved, keeping some space for extra info
+
     oneof data {
-        MediapipeHandTrackingData handTracking = 15; 
-        GestureData gesture = 16;
-        HandMovementData hand_movement = 17;
-        BestUserChangedData best_user_changed = 18;
-        KeyboardUpdateData keyboard_update = 19;
-        MouseMoveData mouse_move = 20;
-        MouseButtonData mouse_button = 21;
-        MouseScrollData mouse_scroll = 22;
-        UltrasonicDistanceData ultrasonic_distance = 23;
-        LightLevelData light_level = 24;
-        EventData event = 25;
-        PirMovementData pir_movement = 26;
+        google.protobuf.Empty void = 16;
+        bool bool = 17;
+        int32 integer = 18;
+        float float = 19;
+        string string = 20;
+
+        Vector2 vector2 = 21;
+        Vector3 vector3 = 22;
     }
 }
 
@@ -38,7 +32,6 @@ message SensorControlMessage {
     string hostname = 1;
     // 2 through 15 reserved
     oneof message {
-        SensorListRequest sensor_list = 16;
         CECMessage cec_message = 17;
     }
 }

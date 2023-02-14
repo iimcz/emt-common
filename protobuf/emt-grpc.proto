@@ -3,6 +3,8 @@ package naki3d.common.protocol;
 
 // TODO: consider splitting services to separate files.
 
+import "discovery.proto";
+
 import "google/protobuf/wrappers.proto";
 import "google/protobuf/empty.proto";
 import "google/protobuf/timestamp.proto";
@@ -41,34 +43,6 @@ message LogsRequest {
 message LogsResponse {
     repeated string log_line = 1;
 }
-
-message ServiceStatusRequest {
-    // Empty, but can be expected to grow later when
-    // the request gets better defined.
-}
-
-message ServiceStatusResponse {
-    enum ServiceStatus {
-        SERVICE_STOPPED = 0;
-        SERVICE_RUNNING = 1;
-        SERVICE_CRASHED = 2;
-    }
-    message Service {
-        string service_name = 1;
-        ServiceStatus status = 2;
-    }
-    repeated Service services = 1;
-}
-
-service DiagnosticService {
-    // Request contents of the main log file, like the Unity log.
-    rpc GetLogs (LogsRequest) returns (LogsResponse);
-    // Request status of all *relevant* services running on the machine.
-    rpc GetServiceStatus (ServiceStatusRequest) returns (ServiceStatusResponse);
-
-    // TODO: define the rest of the diagnostic service as per development discussion.
-}
-
 
 message LoadPackageRequest {
     string descriptor_json = 1; // Package descriptor as defined in the json schema in this repository.
@@ -117,28 +91,6 @@ service PackageService {
     rpc StartPackage (StartPackageRequest) returns (google.protobuf.BoolValue);
 }
 
-// ====================================
-// TODO: this is taken from the 'discovery' branch. We should just include the relevant
-// file when the branch gets merged into master.
-message SensorDescriptor {
-    string path = 1;
-    string model = 2;
-    DataType data_type = 3;
-}
-
-enum DataType {
-    // Bindable
-    Void = 0;
-    Bool = 1;
-    Integer = 2;
-    Float = 3;
-    String = 4;
-
-    // Passthrough
-    Vector = 5;
-}
-// ====================================
-
 message DeviceDescriptorResponse {
     int32 protocol_version = 1;
     string hostname = 2;
@@ -151,8 +103,6 @@ message DeviceDescriptorResponse {
 service DeviceService {
     // Ask the device what it is, which sensors it has and other defining characteristics.
     rpc GetDeviceDescriptor (google.protobuf.Empty) returns (DeviceDescriptorResponse);
-    // Have the device reboot completely.
-    rpc RebootDevice (google.protobuf.Empty) returns (google.protobuf.Empty);
-    // Have the device shut down.
-    rpc ShutdownDevice (google.protobuf.Empty) returns (google.protobuf.Empty);
+    // Sets the device audio level 0.0 - 1.0
+    rpc SetVolume (float) returns (google.protobuf.Empty);
 }
