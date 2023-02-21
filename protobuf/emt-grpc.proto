@@ -34,16 +34,6 @@ service ConnectionService {
     rpc Ping (PingRequest) returns (PingResponse);
 }
 
-
-message LogsRequest {
-    // How many lines from the end of the log to request.
-    optional int32 lines = 1;
-}
-
-message LogsResponse {
-    repeated string log_line = 1;
-}
-
 message LoadPackageRequest {
     string descriptor_json = 1; // Package descriptor as defined in the json schema in this repository.
     bool is_preview = 2; // Loading for preview could skip dependencies for faster download.

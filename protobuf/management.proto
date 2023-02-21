@@ -1,6 +1,8 @@
 syntax = "proto3";
 package naki3d.common.protocol;
 
+import "google/protobuf/empty.proto";
+
 service ManagementService 
 {
     // Shuts the entire emt_sdk enabled device down
@@ -9,12 +11,23 @@ service ManagementService
     rpc Reboot (google.protobuf.Empty) returns (ManagementResponse);
     // Starts the main ipw service
     rpc Start (StartRequest) returns (ManagementResponse);
+    // Stops the main ipw service
+    rpc Stop (google.protobuf.Empty) returns (ManagementResponse);
     // Request contents of the main log file, like the Unity log.
     rpc GetLogs (LogsRequest) returns (LogsResponse);
     // Request status of all *relevant* services running on the machine.
     rpc GetServiceStatus (ServiceStatusRequest) returns (ServiceStatusResponse);
 
     // TODO: define the rest of the diagnostic service as per development discussion.
+}
+
+message LogsRequest {
+    // How many lines from the end of the log to request.
+    optional int32 lines = 1;
+}
+
+message LogsResponse {
+    repeated string log_line = 1;
 }
 
 message ServiceStatusRequest {
