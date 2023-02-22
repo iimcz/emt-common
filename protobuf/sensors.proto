@@ -4,13 +4,14 @@ syntax = "proto3";
 package naki3d.common.protocol;
 
 import "cec.proto";
+import "discovery.proto";
 import "types.proto";
 
 import "google/protobuf/empty.proto";
 
 // RasPi -> Device
 // Message wrapper, same as above.
-message SensorMessage {
+message SensorDataMessage {
     string path = 1;
     uint64 timestamp = 2; // Microseconds since startup (Camera timing is in microseconds, may as well keep it)
 
@@ -23,6 +24,13 @@ message SensorMessage {
 
         Vector2 vector2 = 21;
         Vector3 vector3 = 22;
+    }
+}
+
+message SensorMessage {
+    oneof message {
+        SensorDataMessage data = 1;
+        SensorDescriptor descriptor = 2;
     }
 }
 
