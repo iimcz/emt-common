@@ -111,6 +111,9 @@
             "type": "object",
             "additionalProperties": false,
             "properties": {
+                "relayAddress": {
+                    "type": "string"
+                },
                 "canvasDimensions": {
                     "type": "object",
                     "properties": {
@@ -129,13 +132,7 @@
                         "type": "object",
                         "additionalProperties": false,
                         "properties": {
-                            "role": {
-                                "type": "string"
-                            },
                             "hostname": {
-                                "type": "string"
-                            },
-                            "address": {
                                 "type": "string"
                             },
                             "viewportTransform": {
@@ -144,15 +141,13 @@
                         },
                         "required": [
                             "hostname",
-                            "role",
                             "viewportTransform"
                         ]
                     }
                 }
             },
             "required": [
-                "canvasDimensions",
-                "elements"
+                "relayAddress"
             ]
         }
     }

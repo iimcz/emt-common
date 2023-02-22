@@ -81,21 +81,18 @@
     },
 
     "sync": {
+        "relayAddress": "192.168.1.10",
         "canvasDimensions": {
             "width": 3640,
             "height": 1024
         },
         "elements": [
             {
-                "role": "primary",
                 "hostname": "mainWall",
-                "address": "192.168.1.1",
                 "viewportTransform": "1920x1024+100+0"
             },
             {
-                "role": "secondary",
                 "hostname": "secondaryWall",
-                "address": "192.168.1.2",
                 "viewportTransform": "1920x1024-100+0"
             }
         ]
