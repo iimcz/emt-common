@@ -22,8 +22,8 @@ message SensorDataMessage {
         float float = 19;
         string string = 20;
 
-        Vector2 vector2 = 21;
-        Vector3 vector3 = 22;
+        Vector2Data vector2 = 21;
+        Vector3Data vector3 = 22;
     }
 }
 
