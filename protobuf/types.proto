@@ -11,3 +11,5 @@ message Vector2Data {
     float x = 1;
     float y = 2;
 }
+
+message Empty {}

@@ -30,7 +30,7 @@ message SensorDataMessage {
 message SensorMessage {
     oneof message {
         SensorDataMessage data = 1;
-        SensorDescriptor descriptor = 2;
+        SensorDescriptor sensor_descriptor = 2;
     }
 }
 
